@@ -373,7 +373,7 @@ document.getElementById('tl').innerHTML=TL.map((t,i)=>`<div class="tl-item ${i%2
 
 /* resume and CV previews */
 const documents={
-  resume:{title:'Resume',file:'ABIHAIL_NANS_KUIPER_RESUME.docx'},
+  resume:{title:'Resume',file:'Abihail_Nans_Kuiper_Resume_Final.pdf'},
   cv:{title:'CV',file:'ABIHAIL_NANS_KUIPER_CV.docx'},
 };
 const docDialog=document.getElementById('docDialog'),docPreview=document.getElementById('docPreview');
@@ -386,6 +386,19 @@ document.querySelectorAll('[data-document]').forEach(button=>button.addEventList
   docPreview.textContent='Loading document...';
   docDialog.showModal();
   try{
+    if(documentInfo.file.toLowerCase().endsWith('.pdf')){
+      docPreview.replaceChildren();
+      const iframe=document.createElement('iframe');
+      iframe.src=documentInfo.file;
+      iframe.title=documentInfo.title;
+      iframe.style.width='100%';
+      iframe.style.height='100%';
+      iframe.style.minHeight='520px';
+      iframe.style.border='none';
+      iframe.style.background='white';
+      docPreview.appendChild(iframe);
+      return;
+    }
     if(!window.docx?.renderAsync)throw new Error('Document preview is unavailable.');
     const response=await fetch(documentInfo.file);
     if(!response.ok)throw new Error('Document could not be loaded.');
