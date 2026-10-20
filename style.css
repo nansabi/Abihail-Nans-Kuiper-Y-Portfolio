@@ -1,0 +1,99 @@
+/* Additional styling for Vanta, Lenis, GSAP, and responsiveness */
+
+/* Lenis smooth scrolling recommendations */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Vanta background container */
+#vanta-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Dark overlay between background and content */
+#bg-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 30% 40%, rgba(5,12,8,0.75) 0%, rgba(5,12,8,0.35) 60%, transparent 100%);
+}
+
+/* Ensure no horizontal scroll */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Ensure sections and content stack above Vanta */
+section, header.nav, footer, .wrap {
+  position: relative;
+  z-index: 1;
+}
+
+/* Keep panels semi-transparent with slight glassmorphism so Vanta net shines through beautifully */
+.panel {
+  background: rgba(5, 10, 7, 0.65) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+/* Terminal card styling: slightly more opaque with backdrop-filter: blur(6px) */
+.panel.term {
+  background: rgba(5, 12, 8, 0.85) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+}
+
+/* Hero paragraph and note text readability */
+.hero .tagline,
+.hero .note {
+  text-shadow: 0 0 12px rgba(5, 12, 8, 0.9);
+}
+
+header.nav {
+  background: rgba(5, 10, 7, 0.75) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+/* Hero entrance initial state handling if GSAP is running */
+.hero-content {
+  will-change: transform, opacity;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  #vanta-bg {
+    display: none !important;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
